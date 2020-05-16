@@ -140,9 +140,22 @@ local function savePasteBuffer(register)
 end
 
 spoon.savePasteBuffer = savePasteBuffer
+-- }}} PasteRegister:savePasterBuffer() --
+
+-- PasteRegister:queryAndSavePasteBuffer() {{{ --
+--- PasteRegister:queryAndSavePasteBuffer()
+--- Method
+--- Ask the user to select a register and save the paste buffer
+--- to that register.
+---
+--- Parameters:
+--- * None
+---
+--- Returns:
+--- * True if the operation succeeded, otherwise false
 spoon.queryAndSavePasteBuffer =
   wrapRegisterFunction(savePasteBuffer, "Press key for register to save to")
--- }}} PasteRegister:savePasterBuffer() --
+-- }}} PasteRegister:queryAndSavePasteBuffer() --
 
 -- PasteRegister:loadPasteBuffer() {{{ --
 --- PasteRegister:loadPasteBuffer()
@@ -166,9 +179,22 @@ local function loadPasteBuffer(register)
 end
 
 spoon.loadPasteBuffer = loadPasteBuffer
+-- }}} PasteRegister:loadPasteBuffer() --
+
+-- PasteRegister:queryAndLoadPasteBuffer() {{{ --
+--- PasteRegister:queryAndLoadPasteBuffer()
+--- Method
+--- Ask the user to select a register and load the paste buffer
+--- from that register.
+---
+--- Parameters:
+--- * None
+---
+--- Returns:
+--- * True if the operation succeeded, otherwise false
 spoon.queryAndLoadPasteBuffer =
   wrapRegisterFunction(loadPasteBuffer, "Press key for register to load")
--- }}} PasteRegister:loadPasteBuffer() --
+-- }}} PasteRegister:queryAndLoadPasteBuffer() --
 
 -- PasteRegister:pasteRegister() {{{ --
 --- PasteRegister:pasteRegister()
@@ -192,9 +218,22 @@ local function pasteRegister(register)
 end
 
 spoon.pasteRegister = pasteRegister
+-- }}} PasteRegister:pasteRegister() --
+
+-- PasteRegister:queryAndPasteRegister() {{{ --
+--- PasteRegister:queryAndPasteRegister()
+--- Method
+--- Ask the user to select a register and then paste that register's
+--- contents directly (via keyStrokes())
+---
+--- Parameters:
+--- * None
+---
+--- Returns:
+--- * Nothing
 spoon.queryAndPasteRegister =
   wrapRegisterFunction(pasteRegister, "Press key for register to paste")
--- }}} PasteRegister:pasteRegister() --
+-- }}} PasteRegister:queryAndPasteRegister() --
 
 return spoon
 -- vim: foldmethod=marker:
