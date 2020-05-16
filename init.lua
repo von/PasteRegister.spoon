@@ -5,9 +5,8 @@ spoon = {}
 spoon.name="PasteRegister"
 spoon.version="0.1"
 spoon.author="Von Welch"
--- https://opensource.org/licenses/Apache-2.0
-spoon.license="Apache-2.0"
-spoon.homepage=""
+spoon.license="Creative Commons Zero v1.0 Universal"
+spoon.homepage="ihttps://github.com/von/PasteRegister.spoon"
 -- }}} Metadata --
 
 -- Prefix for register key to create pasteboard name
