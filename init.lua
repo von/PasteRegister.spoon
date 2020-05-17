@@ -123,6 +123,29 @@ local function wrapRegisterFunction(callback, msg)
 end
 -- }}} wrapRegisterFunction() --
 
+--- pasteboardCopy() {{{ --
+--- pasteboardCopy()
+--- Internal Function
+--- Copy one pasteboard to another
+--- If either from or to is nil, the system pasteboard is used.
+--- By not going through StyledText this is a more accurate copy
+---
+--- Parameters:
+--- * from: Name of source pasteboard
+--- * to: Name of destination pasteboard
+---
+--- Returns:
+--- * True on success, false on failure
+function pasteboardCopy(from, to)
+  local data = hs.pasteboard.readAllData(from)
+  if not data then
+    return false
+  end
+  return hs.pasteboard.writeAllData(to, data)
+end
+-- }}} pasteboardCopy() --
+
+
 -- PasteRegister:savePasterBuffer() {{{ --
 --- PasteRegister:savePasterBuffer()
 --- Method
@@ -135,7 +158,7 @@ end
 --- * True if the operation succeeded, otherwise false
 local function savePasteBuffer(register)
   hs.alert.show("Saving paste buffer to register " .. register)
-  return hs.pasteboard.copy(nil, registerPrefix .. register)
+  return pasteboardCopy(nil, registerPrefix .. register)
 end
 
 spoon.savePasteBuffer = savePasteBuffer
@@ -170,7 +193,7 @@ local function loadPasteBuffer(register)
   local contents = hs.pasteboard.getObject(registerPrefix .. register)
   if contents then
     hs.alert.show("Loading paste buffer from register " .. register)
-    return hs.pasteboard.copy(registerPrefix .. register, nil)
+    return pasteboardCopy(registerPrefix .. register, nil)
   else
     hs.alert.show("Register " .. register .. " empty.")
     return false
