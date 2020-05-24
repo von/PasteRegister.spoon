@@ -1,12 +1,12 @@
 -- PasteRegister spoon
-spoon = {}
+local s = {}
 
 -- Metadata {{{ --
-spoon.name="PasteRegister"
-spoon.version="0.1"
-spoon.author="Von Welch"
-spoon.license="Creative Commons Zero v1.0 Universal"
-spoon.homepage="ihttps://github.com/von/PasteRegister.spoon"
+s.name="PasteRegister"
+s.version="0.1"
+s.author="Von Welch"
+s.license="Creative Commons Zero v1.0 Universal"
+s.homepage="ihttps://github.com/von/PasteRegister.spoon"
 -- }}} Metadata --
 
 -- Prefix for register key to create pasteboard name
@@ -25,7 +25,7 @@ local Indefinite = "indefinite"  -- For alerts
 
 -- Set up logger {{{ --
 local log = hs.logger.new("PasteRegister")
-spoon.log = log
+s.log = log
 -- }}} Set up logger --
 
 -- debug() {{{ --
@@ -36,7 +36,7 @@ spoon.log = log
 ---
 --- Returns:
 ---  * Nothing
-spoon.debug = function(enable)
+s.debug = function(enable)
   if enable then
     log.setLogLevel('debug')
     log.d("Debugging enabled")
@@ -63,7 +63,7 @@ end
 --- Returns:
 ---  * PasteRegister object
 
-spoon.bindHotKeys = function(self, table)
+s.bindHotKeys = function(self, table)
   for feature,mapping in pairs(table) do
     if feature == "load" then
        self.hotkey = hs.hotkey.bind(mapping[1], mapping[2],
@@ -160,7 +160,7 @@ local function savePasteBuffer(register)
   return pasteboardCopy(nil, registerPrefix .. register)
 end
 
-spoon.savePasteBuffer = savePasteBuffer
+s.savePasteBuffer = savePasteBuffer
 -- }}} PasteRegister:savePasterBuffer() --
 
 -- PasteRegister:queryAndSavePasteBuffer() {{{ --
@@ -174,7 +174,7 @@ spoon.savePasteBuffer = savePasteBuffer
 ---
 --- Returns:
 --- * True if the operation succeeded, otherwise false
-spoon.queryAndSavePasteBuffer =
+s.queryAndSavePasteBuffer =
   wrapRegisterFunction(savePasteBuffer, "Press key for register to save to")
 -- }}} PasteRegister:queryAndSavePasteBuffer() --
 
@@ -199,7 +199,7 @@ local function loadPasteBuffer(register)
   end
 end
 
-spoon.loadPasteBuffer = loadPasteBuffer
+s.loadPasteBuffer = loadPasteBuffer
 -- }}} PasteRegister:loadPasteBuffer() --
 
 -- PasteRegister:queryAndLoadPasteBuffer() {{{ --
@@ -213,7 +213,7 @@ spoon.loadPasteBuffer = loadPasteBuffer
 ---
 --- Returns:
 --- * True if the operation succeeded, otherwise false
-spoon.queryAndLoadPasteBuffer =
+s.queryAndLoadPasteBuffer =
   wrapRegisterFunction(loadPasteBuffer, "Press key for register to load")
 -- }}} PasteRegister:queryAndLoadPasteBuffer() --
 
@@ -238,7 +238,7 @@ local function pasteRegister(register)
   end
 end
 
-spoon.pasteRegister = pasteRegister
+s.pasteRegister = pasteRegister
 -- }}} PasteRegister:pasteRegister() --
 
 -- PasteRegister:queryAndPasteRegister() {{{ --
@@ -252,9 +252,9 @@ spoon.pasteRegister = pasteRegister
 ---
 --- Returns:
 --- * Nothing
-spoon.queryAndPasteRegister =
+s.queryAndPasteRegister =
   wrapRegisterFunction(pasteRegister, "Press key for register to paste")
 -- }}} PasteRegister:queryAndPasteRegister() --
 
-return spoon
+return s
 -- vim: foldmethod=marker:
