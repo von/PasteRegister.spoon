@@ -123,7 +123,7 @@ local function wrapRegisterFunction(callback, msg)
 end
 -- }}} wrapRegisterFunction() --
 
---- pasteboardCopy() {{{ --
+-- pasteboardCopy() {{{ --
 --- pasteboardCopy()
 --- Internal Function
 --- Copy one pasteboard to another
@@ -144,7 +144,6 @@ function pasteboardCopy(from, to)
   return hs.pasteboard.writeAllData(to, data)
 end
 -- }}} pasteboardCopy() --
-
 
 -- PasteRegister:savePasterBuffer() {{{ --
 --- PasteRegister:savePasterBuffer()
