@@ -7,6 +7,7 @@ s.version="0.1"
 s.author="Von Welch"
 s.license="Creative Commons Zero v1.0 Universal"
 s.homepage="https://github.com/von/PasteRegister.spoon"
+s.path = hs.spoons.scriptPath()
 -- }}} Metadata --
 
 -- Prefix for register key to create pasteboard name
