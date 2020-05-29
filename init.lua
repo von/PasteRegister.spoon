@@ -190,7 +190,7 @@ s.queryAndSavePasteBuffer =
 --- Returns:
 --- * True if the operation succeeded, otherwise false
 local function loadPasteBuffer(register)
-  local contents = hs.pasteboard.getObject(registerPrefix .. register)
+  local contents = hs.pasteboard.getContents(s.registerPrefix .. register)
   if contents then
     hs.alert.show("Loading paste buffer from register " .. register)
     return pasteboardCopy(registerPrefix .. register, nil)
