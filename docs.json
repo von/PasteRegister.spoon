@@ -1,0 +1,274 @@
+[
+  {
+    "Constant" : [
+
+    ],
+    "submodules" : [
+
+    ],
+    "Function" : [
+      {
+        "doc" : "Ask the user to select a register and save the paste buffer\nto that register.\n\nParameters:\n* None\n\nReturns:\n* True if the operation succeeded, otherwise false",
+        "stripped_doc" : [
+          "Ask the user to select a register and save the paste buffer",
+          "to that register.",
+          ""
+        ],
+        "desc" : "Ask the user to select a register and save the paste buffer",
+        "parameters" : [
+          "* None",
+          ""
+        ],
+        "notes" : [
+
+        ],
+        "signature" : "PasteRegister:queryAndSavePasteBuffer()",
+        "type" : "Function",
+        "returns" : [
+          "* True if the operation succeeded, otherwise false"
+        ],
+        "name" : "queryAndSavePasteBuffer",
+        "def" : "PasteRegister:queryAndSavePasteBuffer()"
+      }
+    ],
+    "Variable" : [
+
+    ],
+    "stripped_doc" : [
+
+    ],
+    "Deprecated" : [
+
+    ],
+    "type" : "Module",
+    "desc" : "Allow the saving of the pastebuffer to registers identified by",
+    "Constructor" : [
+
+    ],
+    "doc" : "Allow the saving of the pastebuffer to registers identified by\nletters of the alphabet, and sequently loading it from those\nregisters.",
+    "Field" : [
+
+    ],
+    "Method" : [
+      {
+        "doc" : "Enable or disable debugging\n\nParameters:\n * enable - Boolean indicating whether debugging should be on\n\nReturns:\n * Nothing",
+        "stripped_doc" : [
+          "Enable or disable debugging",
+          ""
+        ],
+        "desc" : "Enable or disable debugging",
+        "parameters" : [
+          " * enable - Boolean indicating whether debugging should be on",
+          ""
+        ],
+        "notes" : [
+
+        ],
+        "signature" : "PasteRegister:debug()",
+        "type" : "Method",
+        "returns" : [
+          " * Nothing"
+        ],
+        "name" : "debug",
+        "def" : "PasteRegister:debug()"
+      },
+      {
+        "doc" : "Accepts a table of key bindings, e.g.:\n  {\n    save = {{\"cmd\", \"alt\"}, \"s\"},\n    load = {{\"cmd\", \"alt\"}, \"l\"},\n    paste = {{\"cmd\", \"alt\"}, \"p\"},\n  }\n\nParameters:\n * table - Table of action to key mappings\n\nReturns:\n * PasteRegister object",
+        "stripped_doc" : [
+          "Accepts a table of key bindings, e.g.:",
+          "  {",
+          "    save = {{\"cmd\", \"alt\"}, \"s\"},",
+          "    load = {{\"cmd\", \"alt\"}, \"l\"},",
+          "    paste = {{\"cmd\", \"alt\"}, \"p\"},",
+          "  }",
+          ""
+        ],
+        "desc" : "Accepts a table of key bindings, e.g.:",
+        "parameters" : [
+          " * table - Table of action to key mappings",
+          ""
+        ],
+        "notes" : [
+
+        ],
+        "signature" : "PasteRegister:bindHotKey(table)",
+        "type" : "Method",
+        "returns" : [
+          " * PasteRegister object"
+        ],
+        "name" : "bindHotKey",
+        "def" : "PasteRegister:bindHotKey(table)"
+      },
+      {
+        "doc" : "Ask the user to select a register and load the paste buffer\nfrom that register.\n\nParameters:\n* None\n\nReturns:\n* True if the operation succeeded, otherwise false",
+        "stripped_doc" : [
+          "Ask the user to select a register and load the paste buffer",
+          "from that register.",
+          ""
+        ],
+        "desc" : "Ask the user to select a register and load the paste buffer",
+        "parameters" : [
+          "* None",
+          ""
+        ],
+        "notes" : [
+
+        ],
+        "signature" : "PasteRegister:queryAndLoadPasteBuffer()",
+        "type" : "Method",
+        "returns" : [
+          "* True if the operation succeeded, otherwise false"
+        ],
+        "name" : "queryAndLoadPasteBuffer",
+        "def" : "PasteRegister:queryAndLoadPasteBuffer()"
+      },
+      {
+        "doc" : "Ask the user to select a register and then paste that register's\ncontents directly (via keyStrokes())\n\nParameters:\n* None\n\nReturns:\n* Nothing",
+        "stripped_doc" : [
+          "Ask the user to select a register and then paste that register's",
+          "contents directly (via keyStrokes())",
+          ""
+        ],
+        "desc" : "Ask the user to select a register and then paste that register's",
+        "parameters" : [
+          "* None",
+          ""
+        ],
+        "notes" : [
+
+        ],
+        "signature" : "PasteRegister:queryAndPasteRegister()",
+        "type" : "Method",
+        "returns" : [
+          "* Nothing"
+        ],
+        "name" : "queryAndPasteRegister",
+        "def" : "PasteRegister:queryAndPasteRegister()"
+      }
+    ],
+    "Command" : [
+
+    ],
+    "items" : [
+      {
+        "doc" : "Ask the user to select a register and save the paste buffer\nto that register.\n\nParameters:\n* None\n\nReturns:\n* True if the operation succeeded, otherwise false",
+        "stripped_doc" : [
+          "Ask the user to select a register and save the paste buffer",
+          "to that register.",
+          ""
+        ],
+        "desc" : "Ask the user to select a register and save the paste buffer",
+        "parameters" : [
+          "* None",
+          ""
+        ],
+        "notes" : [
+
+        ],
+        "signature" : "PasteRegister:queryAndSavePasteBuffer()",
+        "type" : "Function",
+        "returns" : [
+          "* True if the operation succeeded, otherwise false"
+        ],
+        "name" : "queryAndSavePasteBuffer",
+        "def" : "PasteRegister:queryAndSavePasteBuffer()"
+      },
+      {
+        "doc" : "Accepts a table of key bindings, e.g.:\n  {\n    save = {{\"cmd\", \"alt\"}, \"s\"},\n    load = {{\"cmd\", \"alt\"}, \"l\"},\n    paste = {{\"cmd\", \"alt\"}, \"p\"},\n  }\n\nParameters:\n * table - Table of action to key mappings\n\nReturns:\n * PasteRegister object",
+        "stripped_doc" : [
+          "Accepts a table of key bindings, e.g.:",
+          "  {",
+          "    save = {{\"cmd\", \"alt\"}, \"s\"},",
+          "    load = {{\"cmd\", \"alt\"}, \"l\"},",
+          "    paste = {{\"cmd\", \"alt\"}, \"p\"},",
+          "  }",
+          ""
+        ],
+        "desc" : "Accepts a table of key bindings, e.g.:",
+        "parameters" : [
+          " * table - Table of action to key mappings",
+          ""
+        ],
+        "notes" : [
+
+        ],
+        "signature" : "PasteRegister:bindHotKey(table)",
+        "type" : "Method",
+        "returns" : [
+          " * PasteRegister object"
+        ],
+        "name" : "bindHotKey",
+        "def" : "PasteRegister:bindHotKey(table)"
+      },
+      {
+        "doc" : "Enable or disable debugging\n\nParameters:\n * enable - Boolean indicating whether debugging should be on\n\nReturns:\n * Nothing",
+        "stripped_doc" : [
+          "Enable or disable debugging",
+          ""
+        ],
+        "desc" : "Enable or disable debugging",
+        "parameters" : [
+          " * enable - Boolean indicating whether debugging should be on",
+          ""
+        ],
+        "notes" : [
+
+        ],
+        "signature" : "PasteRegister:debug()",
+        "type" : "Method",
+        "returns" : [
+          " * Nothing"
+        ],
+        "name" : "debug",
+        "def" : "PasteRegister:debug()"
+      },
+      {
+        "doc" : "Ask the user to select a register and load the paste buffer\nfrom that register.\n\nParameters:\n* None\n\nReturns:\n* True if the operation succeeded, otherwise false",
+        "stripped_doc" : [
+          "Ask the user to select a register and load the paste buffer",
+          "from that register.",
+          ""
+        ],
+        "desc" : "Ask the user to select a register and load the paste buffer",
+        "parameters" : [
+          "* None",
+          ""
+        ],
+        "notes" : [
+
+        ],
+        "signature" : "PasteRegister:queryAndLoadPasteBuffer()",
+        "type" : "Method",
+        "returns" : [
+          "* True if the operation succeeded, otherwise false"
+        ],
+        "name" : "queryAndLoadPasteBuffer",
+        "def" : "PasteRegister:queryAndLoadPasteBuffer()"
+      },
+      {
+        "doc" : "Ask the user to select a register and then paste that register's\ncontents directly (via keyStrokes())\n\nParameters:\n* None\n\nReturns:\n* Nothing",
+        "stripped_doc" : [
+          "Ask the user to select a register and then paste that register's",
+          "contents directly (via keyStrokes())",
+          ""
+        ],
+        "desc" : "Ask the user to select a register and then paste that register's",
+        "parameters" : [
+          "* None",
+          ""
+        ],
+        "notes" : [
+
+        ],
+        "signature" : "PasteRegister:queryAndPasteRegister()",
+        "type" : "Method",
+        "returns" : [
+          "* Nothing"
+        ],
+        "name" : "queryAndPasteRegister",
+        "def" : "PasteRegister:queryAndPasteRegister()"
+      }
+    ],
+    "name" : "PasteRegister"
+  }
+]

@@ -1,4 +1,9 @@
--- PasteRegister spoon
+--- === PasteRegister ===
+---
+--- Allow the saving of the pastebuffer to registers identified by
+--- letters of the alphabet, and sequently loading it from those
+--- registers.
+
 local s = {}
 
 -- Metadata {{{ --
@@ -24,8 +29,7 @@ local Indefinite = "indefinite"  -- For alerts
 -- }}} Constants --
 
 -- Set up logger {{{ --
-local log = hs.logger.new("PasteRegister")
-s.log = log
+s.log = hs.logger.new("PasteRegister")
 -- }}} Set up logger --
 
 -- PasteRegister:debug() {{{ --
@@ -38,19 +42,19 @@ s.log = log
 ---
 --- Returns:
 ---  * Nothing
-s.debug = function(self, enable)
+function s:debug()
   if enable then
-    self.log.setLogLevel('debug')
-    self.log.d("Debugging enabled")
+    s.log.setLogLevel('debug')
+    s.log.d("Debugging enabled")
   else
-    self.log.d("Disabling debugging")
-    self.log.setLogLevel('info')
+    s.log.d("Disabling debugging")
+    s.log.setLogLevel('info')
   end
 end
 -- }}} PasteRegister:debug() --
 
--- PasteRegister:bindHotKey() {{{ --
---- PasteRegister:bindHotKey(self, table)
+-- PasteRegister:bindHotKeys() {{{ --
+--- PasteRegister:bindHotKeys(table)
 --- Method
 --- Accepts a table of key bindings, e.g.:
 ---   {
@@ -65,38 +69,37 @@ end
 --- Returns:
 ---  * PasteRegister object
 
-s.bindHotKeys = function(self, table)
+function s:bindHotKeys(table)
   for feature,mapping in pairs(table) do
     if feature == "load" then
-       self.hotkey = hs.hotkey.bind(mapping[1], mapping[2],
-         function() self:queryAndLoadPasteBuffer() end)
+       s.hotkey = hs.hotkey.bind(mapping[1], mapping[2],
+         function() s:queryAndLoadPasteBuffer() end)
      elseif feature == "save" then
-       self.hotkey = hs.hotkey.bind(mapping[1], mapping[2],
-         function() self:queryAndSavePasteBuffer() end)
+       s.hotkey = hs.hotkey.bind(mapping[1], mapping[2],
+         function() s:queryAndSavePasteBuffer() end)
      elseif feature == "paste" then
-       self.hotkey = hs.hotkey.bind(mapping[1], mapping[2],
-         function() self:queryAndPasteRegister() end)
+       s.hotkey = hs.hotkey.bind(mapping[1], mapping[2],
+         function() s:queryAndPasteRegister() end)
      else
        log.wf("Unrecognized key binding feature '%s'", feature)
      end
    end
-  return self
+  return s
 end
--- }}} PasteRegister:bindHotKey() --
+-- }}} PasteRegister:bindHotKeys() --
 
 -- wrapRegisterFunction() {{{ --
---- wrapRegisterFunction()
---- Internal function
---- Given a callback that manipulates a register, create a modal that
---- allows selection of a register and passes it to the callback.
----
---- Parameters:
---- * callback - function to call when hotkey pressed
---- * msg -  String displayed when callback is activated.
----
---- Returns:
---- *  A function to activate the modal.
-
+-- wrapRegisterFunction()
+-- Internal function
+-- Given a callback that manipulates a register, create a modal that
+-- allows selection of a register and passes it to the callback.
+--
+-- Parameters:
+-- * callback - function to call when hotkey pressed
+-- * msg -  String displayed when callback is activated.
+--
+-- Returns:
+-- *  A function to activate the modal.
 local function wrapRegisterFunction(callback, msg)
   local modal = hs.hotkey.modal.new(NoMod, Unbound, NoMsg)
 
@@ -127,19 +130,19 @@ end
 -- }}} wrapRegisterFunction() --
 
 -- pasteboardCopy() {{{ --
---- pasteboardCopy()
---- Internal Function
---- Copy one pasteboard to another
---- If either from or to is nil, the system pasteboard is used.
---- By not going through StyledText this is a more accurate copy
----
---- Parameters:
---- * from: Name of source pasteboard
---- * to: Name of destination pasteboard
----
---- Returns:
---- * True on success, false on failure
-function pasteboardCopy(from, to)
+-- pasteboardCopy()
+-- Internal Function
+-- Copy one pasteboard to another
+-- If either from or to is nil, the system pasteboard is used.
+-- By not going through StyledText this is a more accurate copy
+--
+-- Parameters:
+-- * from: Name of source pasteboard
+-- * to: Name of destination pasteboard
+--
+-- Returns:
+-- * True on success, false on failure
+local function pasteboardCopy(from, to)
   local data = hs.pasteboard.readAllData(from)
   if not data then
     return false
@@ -148,27 +151,25 @@ function pasteboardCopy(from, to)
 end
 -- }}} pasteboardCopy() --
 
--- PasteRegister.savePasterBuffer() {{{ --
---- PasteRegister.savePasterBuffer()
---- Function
---- Save PasteBuffer to register
----
---- Parameters:
---- * register: Character identifying register to which to save
----
---- Returns:
---- * True if the operation succeeded, otherwise false
+-- savePasterBuffer() {{{ --
+-- savePasterBuffer()
+-- Internal Function
+-- Save PasteBuffer to register
+--
+-- Parameters:
+-- * register: Character identifying register to which to save
+--
+-- Returns:
+-- * True if the operation succeeded, otherwise false
 local function savePasteBuffer(register)
   hs.alert.show("Saving paste buffer to register " .. register)
   return pasteboardCopy(nil, s.registerPrefix .. register)
 end
+-- }}} savePasterBuffer() --
 
-s.savePasteBuffer = savePasteBuffer
--- }}} PasteRegister.savePasterBuffer() --
-
--- PasteRegister.queryAndSavePasteBuffer() {{{ --
---- PasteRegister.queryAndSavePasteBuffer()
---- Function
+-- PasteRegister:queryAndSavePasteBuffer() {{{ --
+--- PasteRegister:queryAndSavePasteBuffer()
+--- Method
 --- Ask the user to select a register and save the paste buffer
 --- to that register.
 ---
@@ -177,20 +178,26 @@ s.savePasteBuffer = savePasteBuffer
 ---
 --- Returns:
 --- * True if the operation succeeded, otherwise false
-s.queryAndSavePasteBuffer =
-  wrapRegisterFunction(savePasteBuffer, "Press key for register to save to")
--- }}} PasteRegister.queryAndSavePasteBuffer() --
 
--- PasteRegister.loadPasteBuffer() {{{ --
---- PasteRegister.loadPasteBuffer()
---- Function
---- Load PasteBuffer from register
----
---- Parameters:
---- * register: Character identifying register from which to load
----
---- Returns:
---- * True if the operation succeeded, otherwise false
+local queryAndSavePasteBuffer =
+  wrapRegisterFunction(savePasteBuffer, "Press key for register to save to")
+
+function s:queryAndSavePasteBuffer()
+  return queryAndSavePasteBuffer()
+end
+
+-- }}} PasteRegister:queryAndSavePasteBuffer() --
+
+-- loadPasteBuffer() {{{ --
+-- loadPasteBuffer()
+-- Internal Function
+-- Load PasteBuffer from register
+--
+-- Parameters:
+-- * register: Character identifying register from which to load
+--
+-- Returns:
+-- * True if the operation succeeded, otherwise false
 local function loadPasteBuffer(register)
   local contents = hs.pasteboard.getContents(s.registerPrefix .. register)
   if contents then
@@ -201,12 +208,10 @@ local function loadPasteBuffer(register)
     return false
   end
 end
+-- }}} loadPasteBuffer() --
 
-s.loadPasteBuffer = loadPasteBuffer
--- }}} PasteRegister:loadPasteBuffer() --
-
--- PasteRegister.queryAndLoadPasteBuffer() {{{ --
---- PasteRegister.queryAndLoadPasteBuffer()
+-- PasteRegister:queryAndLoadPasteBuffer() {{{ --
+--- PasteRegister:queryAndLoadPasteBuffer()
 --- Function
 --- Ask the user to select a register and load the paste buffer
 --- from that register.
@@ -216,20 +221,24 @@ s.loadPasteBuffer = loadPasteBuffer
 ---
 --- Returns:
 --- * True if the operation succeeded, otherwise false
-s.queryAndLoadPasteBuffer =
+local queryAndLoadPasteBuffer =
   wrapRegisterFunction(loadPasteBuffer, "Press key for register to load")
--- }}} PasteRegister.queryAndLoadPasteBuffer() --
 
--- PasteRegister.pasteRegister() {{{ --
---- PasteRegister.pasteRegister()
---- Function
---- Paster directly from register without changing default pastebuffer
----
---- Parameters:
---- * register: Character identifying register from which to load
----
---- Returns:
---- * Nothing
+function s:queryAndLoadPasteBuffer()
+  return queryAndLoadPasteBuffer()
+end
+-- }}} PasteRegister:queryAndLoadPasteBuffer() --
+
+-- pasteRegister() {{{ --
+-- PasteRegister.pasteRegister()
+-- Internal Function
+-- Paster directly from register without changing default pastebuffer
+--
+-- Parameters:
+-- * register: Character identifying register from which to load
+--
+-- Returns:
+-- * Nothing
 local function pasteRegister(register)
   -- hs.eventtap.keyStrokes() cannot handle styledtext
   local contents = hs.pasteboard.readString(registerPrefix .. register)
@@ -240,9 +249,7 @@ local function pasteRegister(register)
     hs.alert.show("Register " .. register .. " empty.")
   end
 end
-
-s.pasteRegister = pasteRegister
--- }}} PasteRegister.pasteRegister() --
+-- }}} pasteRegister() --
 
 -- PasteRegister.queryAndPasteRegister() {{{ --
 --- PasteRegister.queryAndPasteRegister()
@@ -255,9 +262,13 @@ s.pasteRegister = pasteRegister
 ---
 --- Returns:
 --- * Nothing
-s.queryAndPasteRegister =
+local queryAndPasteRegister =
   wrapRegisterFunction(pasteRegister, "Press key for register to paste")
--- }}} PasteRegister.queryAndPasteRegister() --
+
+function s:queryAndPasteRegister()
+  queryAndLoadPasteBuffer()
+end
+-- }}} PasteRegister:queryAndPasteRegister() --
 
 return s
 -- vim: foldmethod=marker:
