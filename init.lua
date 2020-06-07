@@ -4,23 +4,17 @@
 --- letters of the alphabet, and sequently loading it from those
 --- registers.
 
-local s = {}
+local PasteRegister = {}
 
 -- Metadata {{{ --
-s.name="PasteRegister"
-s.version="0.2"
-s.author="Von Welch"
-s.license="Creative Commons Zero v1.0 Universal"
-s.homepage="https://github.com/von/PasteRegister.spoon"
+PasteRegister.name="PasteRegister"
+PasteRegister.version="0.3"
+PasteRegister.author="Von Welch"
+PasteRegister.license="Creative Commons Zero v1.0 Universal"
+PasteRegister.homepage="https://github.com/von/PasteRegister.spoon"
 -- }}} Metadata --
 
 -- Constants {{{ --
-s.path = hs.spoons.scriptPath()
--- Prefix for register key to create pasteboard name
-s.registerPrefix = "Hammerspoon-register-"
--- List of legal registers
-s.legalRegisters = "0123456789abcdefghijklmnopqrstuvwxyz"
-
 local NoMod = {}
 local Unbound = nil
 local NoMsg = nil
@@ -28,9 +22,38 @@ local NoFunc = nil
 local Indefinite = "indefinite"  -- For alerts
 -- }}} Constants --
 
--- Set up logger {{{ --
-s.log = hs.logger.new("PasteRegister")
--- }}} Set up logger --
+-- Class variables {{{ --
+-- The following are used by internal functions
+
+-- Prefix for register key to create pasteboard name
+PasteRegister.registerPrefix = "Hammerspoon-register-"
+
+-- List of legal registers
+PasteRegister.legalRegisters = "0123456789abcdefghijklmnopqrstuvwxyz"
+
+-- }}} Class variables --
+
+-- PasteRegister:init() {{{ --
+--- PasteRegister:init()
+--- Method
+--- Initializes a PasteRegister
+--- When a user calls hs.loadSpoon(), Hammerspoon will load and execute init.lua
+--- from the relevant s.
+--- Do generally not perform any work, map any hotkeys, start any timers/watchers/etc.
+--- in the main scope of your init.lua. Instead, it should simply prepare an object
+--- with methods to be used later, then return the object.
+---
+--- Parameters:
+---  * None
+---
+--- Returns:
+---  * PasteRegister object
+function PasteRegister:init()
+  self.log = hs.logger.new("PasteRegister")
+
+  return self
+end
+-- }}} PasteRegister:init() --
 
 -- PasteRegister:debug() {{{ --
 --- PasteRegister:debug()
@@ -42,13 +65,13 @@ s.log = hs.logger.new("PasteRegister")
 ---
 --- Returns:
 ---  * Nothing
-function s:debug()
+function PasteRegister:debug()
   if enable then
-    s.log.setLogLevel('debug')
-    s.log.d("Debugging enabled")
+    self.log.setLogLevel('debug')
+    self.log.d("Debugging enabled")
   else
-    s.log.d("Disabling debugging")
-    s.log.setLogLevel('info')
+    self.log.d("Disabling debugging")
+    self.log.setLogLevel('info')
   end
 end
 -- }}} PasteRegister:debug() --
@@ -69,17 +92,14 @@ end
 --- Returns:
 ---  * PasteRegister object
 
-function s:bindHotKeys(table)
+function PasteRegister:bindHotKeys(table)
   for feature,mapping in pairs(table) do
     if feature == "load" then
-       s.hotkey = hs.hotkey.bind(mapping[1], mapping[2],
-         function() s:queryAndLoadPasteBuffer() end)
+       hs.hotkey.bind(mapping[1], mapping[2], function() s:queryAndLoadPasteBuffer() end)
      elseif feature == "save" then
-       s.hotkey = hs.hotkey.bind(mapping[1], mapping[2],
-         function() s:queryAndSavePasteBuffer() end)
+       hs.hotkey.bind(mapping[1], mapping[2], function() s:queryAndSavePasteBuffer() end)
      elseif feature == "paste" then
-       s.hotkey = hs.hotkey.bind(mapping[1], mapping[2],
-         function() s:queryAndPasteRegister() end)
+       hs.hotkey.bind(mapping[1], mapping[2], function() s:queryAndPasteRegister() end)
      else
        log.wf("Unrecognized key binding feature '%s'", feature)
      end
@@ -108,7 +128,7 @@ local function wrapRegisterFunction(callback, msg)
   -- call back function for each key.
   -- TODO: Find a way to throw an error for non-legal registers
   -- Kudos for string iterator: https://stackoverflow.com/a/832414/197789
-  for c in s.legalRegisters:gmatch(".") do
+  for c in PasteRegister.legalRegisters:gmatch(".") do
     local wrappedCallback = function()
       -- Need to exit modal before callback. If callback is pasting text,
       -- modal will eat it if still active.
@@ -163,7 +183,7 @@ end
 -- * True if the operation succeeded, otherwise false
 local function savePasteBuffer(register)
   hs.alert.show("Saving paste buffer to register " .. register)
-  return pasteboardCopy(nil, s.registerPrefix .. register)
+  return pasteboardCopy(nil, PasteRegister.registerPrefix .. register)
 end
 -- }}} savePasterBuffer() --
 
@@ -182,7 +202,7 @@ end
 local queryAndSavePasteBuffer =
   wrapRegisterFunction(savePasteBuffer, "Press key for register to save to")
 
-function s:queryAndSavePasteBuffer()
+function PasteRegister:queryAndSavePasteBuffer()
   return queryAndSavePasteBuffer()
 end
 
@@ -199,10 +219,10 @@ end
 -- Returns:
 -- * True if the operation succeeded, otherwise false
 local function loadPasteBuffer(register)
-  local contents = hs.pasteboard.getContents(s.registerPrefix .. register)
+  local contents = hs.pasteboard.getContents(PasteRegister.registerPrefix .. register)
   if contents then
     hs.alert.show("Loading paste buffer from register " .. register)
-    return pasteboardCopy(s.registerPrefix .. register, nil)
+    return pasteboardCopy(PasteRegister.registerPrefix .. register, nil)
   else
     hs.alert.show("Register " .. register .. " empty.")
     return false
@@ -224,7 +244,7 @@ end
 local queryAndLoadPasteBuffer =
   wrapRegisterFunction(loadPasteBuffer, "Press key for register to load")
 
-function s:queryAndLoadPasteBuffer()
+function PasteRegister:queryAndLoadPasteBuffer()
   return queryAndLoadPasteBuffer()
 end
 -- }}} PasteRegister:queryAndLoadPasteBuffer() --
@@ -241,7 +261,7 @@ end
 -- * Nothing
 local function pasteRegister(register)
   -- hs.eventtap.keyStrokes() cannot handle styledtext
-  local contents = hs.pasteboard.readString(registerPrefix .. register)
+  local contents = hs.pasteboard.readString(PasteRegister.registerPrefix .. register)
   if contents then
     hs.alert.show("Pasting from register " .. register)
     hs.eventtap.keyStrokes(contents)
@@ -265,10 +285,10 @@ end
 local queryAndPasteRegister =
   wrapRegisterFunction(pasteRegister, "Press key for register to paste")
 
-function s:queryAndPasteRegister()
-  queryAndLoadPasteBuffer()
+function PasteRegister:queryAndPasteRegister()
+  queryAndPasteRegister()
 end
 -- }}} PasteRegister:queryAndPasteRegister() --
 
-return s
+return PasteRegister
 -- vim: foldmethod=marker:
