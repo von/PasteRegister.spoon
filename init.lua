@@ -316,7 +316,24 @@ function PasteRegister:chooser()
     local contents = hs.pasteboard.getContents(PasteRegister.registerPrefix .. register)
     if contents then
       table.insert(choices, {
-          text = string.format("[%s] %.40s", register, contents),
+          text = string.format("%.40s", contents),
+          -- image code kudos: https://github.com/Hammerspoon/hammerspoon/pull/2062
+          image = hs.canvas.new{ h = 50, w = 50 }:appendElements{
+            {
+              type = "rectangle",
+              -- alpha = 0 -> transparent
+              strokeColor = { alpha = 0 },
+              fillColor   = { alpha = 0 },
+            }, {
+              frame = { h = 50, w = 50, x = 0, y = -6 },
+              text = hs.styledtext.new(register, {
+                  color = { white = 1 },
+                  font = { name = ".AppleSystemUIFont", size = 50 },
+                  paragraphStyle = { alignment = "center" }
+                }),
+              type = "text",
+            }
+          }:imageFromCanvas(),
           register = register
         })
     end
