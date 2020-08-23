@@ -95,11 +95,11 @@ end
 function PasteRegister:bindHotKeys(table)
   for feature,mapping in pairs(table) do
     if feature == "load" then
-       hs.hotkey.bind(mapping[1], mapping[2], function() s:queryAndLoadPasteBuffer() end)
+       hs.hotkey.bind(mapping[1], mapping[2], function() self:queryAndLoadPasteBuffer() end)
      elseif feature == "save" then
-       hs.hotkey.bind(mapping[1], mapping[2], function() s:queryAndSavePasteBuffer() end)
+       hs.hotkey.bind(mapping[1], mapping[2], function() self:queryAndSavePasteBuffer() end)
      elseif feature == "paste" then
-       hs.hotkey.bind(mapping[1], mapping[2], function() s:queryAndPasteRegister() end)
+       hs.hotkey.bind(mapping[1], mapping[2], function() self:queryAndPasteRegister() end)
      else
        log.wf("Unrecognized key binding feature '%s'", feature)
      end
