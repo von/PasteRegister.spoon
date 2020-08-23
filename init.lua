@@ -8,7 +8,7 @@ local PasteRegister = {}
 
 -- Metadata {{{ --
 PasteRegister.name="PasteRegister"
-PasteRegister.version="0.3"
+PasteRegister.version="0.4"
 PasteRegister.author="Von Welch"
 PasteRegister.license="Creative Commons Zero v1.0 Universal"
 PasteRegister.homepage="https://github.com/von/PasteRegister.spoon"
@@ -84,6 +84,7 @@ end
 ---     save = {{"cmd", "alt"}, "s"},
 ---     load = {{"cmd", "alt"}, "l"},
 ---     paste = {{"cmd", "alt"}, "p"},
+---     paste = {{"cmd", "alt"}, "c"}
 ---   }
 ---
 --- Parameters:
@@ -100,6 +101,8 @@ function PasteRegister:bindHotKeys(table)
        hs.hotkey.bind(mapping[1], mapping[2], function() self:queryAndSavePasteBuffer() end)
      elseif feature == "paste" then
        hs.hotkey.bind(mapping[1], mapping[2], function() self:queryAndPasteRegister() end)
+     elseif feature == "chooser" then
+       hs.hotkey.bind(mapping[1], mapping[2], function() self:chooser() end)
      else
        log.wf("Unrecognized key binding feature '%s'", feature)
      end
@@ -289,6 +292,41 @@ function PasteRegister:queryAndPasteRegister()
   queryAndPasteRegister()
 end
 -- }}} PasteRegister:queryAndPasteRegister() --
+
+-- PasteRegister:chooser() {{{ --
+--- PasteRegister:chooser()
+--- Method
+--- Open a hs.chooser instance with registers that have content.
+---
+--- Parameters:
+--- * None
+---
+--- Returns:
+--- * Nothing
+function PasteRegister:chooser()
+  local function chooserCallback(choice)
+    if choice == nil then
+      return
+    end
+    loadPasteBuffer(choice.register)
+  end
+
+  local choices = {}
+  for register in PasteRegister.legalRegisters:gmatch(".") do
+    local contents = hs.pasteboard.getContents(PasteRegister.registerPrefix .. register)
+    if contents then
+      table.insert(choices, {
+          text = string.format("[%s] %.40s", register, contents),
+          register = register
+        })
+    end
+  end
+
+  local chooser = hs.chooser.new(chooserCallback)
+  chooser:choices(choices)
+  chooser:show()
+end
+-- }}} PasteRegister:chooser() --
 
 return PasteRegister
 -- vim: foldmethod=marker:
