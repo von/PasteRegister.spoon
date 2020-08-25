@@ -8,7 +8,7 @@ local PasteRegister = {}
 
 -- Metadata {{{ --
 PasteRegister.name="PasteRegister"
-PasteRegister.version="0.4"
+PasteRegister.version="0.5"
 PasteRegister.author="Von Welch"
 PasteRegister.license="Creative Commons Zero v1.0 Universal"
 PasteRegister.homepage="https://github.com/von/PasteRegister.spoon"
@@ -81,10 +81,10 @@ end
 --- Method
 --- Accepts a table of key bindings, e.g.:
 ---   {
----     save = {{"cmd", "alt"}, "s"},
+---     chooser = {{"cmd", "alt"}, "c"},
 ---     load = {{"cmd", "alt"}, "l"},
 ---     paste = {{"cmd", "alt"}, "p"},
----     paste = {{"cmd", "alt"}, "c"}
+---     save = {{"cmd", "alt"}, "s"}
 ---   }
 ---
 --- Parameters:
@@ -94,19 +94,13 @@ end
 ---  * PasteRegister object
 
 function PasteRegister:bindHotKeys(table)
-  for feature,mapping in pairs(table) do
-    if feature == "load" then
-       hs.hotkey.bind(mapping[1], mapping[2], function() self:queryAndLoadPasteBuffer() end)
-     elseif feature == "save" then
-       hs.hotkey.bind(mapping[1], mapping[2], function() self:queryAndSavePasteBuffer() end)
-     elseif feature == "paste" then
-       hs.hotkey.bind(mapping[1], mapping[2], function() self:queryAndPasteRegister() end)
-     elseif feature == "chooser" then
-       hs.hotkey.bind(mapping[1], mapping[2], function() self:chooser() end)
-     else
-       log.wf("Unrecognized key binding feature '%s'", feature)
-     end
-   end
+  local spec = {
+    chooser = hs.fnutils.partial(self.chooser, self),
+    load = hs.fnutils.partial(self.queryAndLoadPasteBuffer, self),
+    paste = hs.fnutils.partial(self.queryAndPasteRegister, self),
+    save = hs.fnutils.partial(self.queryAndSavePasteBuffer, self)
+  }
+  hs.spoons.bindHotkeysToSpec(spec, mapping)
   return s
 end
 -- }}} PasteRegister:bindHotKeys() --

@@ -8,14 +8,14 @@
     ],
     "Function" : [
       {
-        "doc" : "Ask the user to select a register and load the paste buffer\nfrom that register.\n\nParameters:\n* None\n\nReturns:\n* True if the operation succeeded, otherwise false",
+        "name" : "queryAndLoadPasteBuffer",
         "stripped_doc" : [
           "Ask the user to select a register and load the paste buffer",
           "from that register.",
           ""
         ],
+        "doc" : "Ask the user to select a register and load the paste buffer\nfrom that register.\n\nParameters:\n* None\n\nReturns:\n* True if the operation succeeded, otherwise false",
         "def" : "PasteRegister:queryAndLoadPasteBuffer()",
-        "desc" : "Ask the user to select a register and load the paste buffer",
         "notes" : [
 
         ],
@@ -24,7 +24,7 @@
         "returns" : [
           "* True if the operation succeeded, otherwise false"
         ],
-        "name" : "queryAndLoadPasteBuffer",
+        "desc" : "Ask the user to select a register and load the paste buffer",
         "parameters" : [
           "* None",
           ""
@@ -37,172 +37,31 @@
     "stripped_doc" : [
 
     ],
-    "type" : "Module",
+    "desc" : "Allow the saving of the pastebuffer to registers identified by",
     "Deprecated" : [
 
     ],
-    "desc" : "Allow the saving of the pastebuffer to registers identified by",
+    "type" : "Module",
     "Constructor" : [
 
     ],
     "doc" : "Allow the saving of the pastebuffer to registers identified by\nletters of the alphabet, and sequently loading it from those\nregisters.",
-    "Method" : [
-      {
-        "doc" : "Initializes a PasteRegister\nWhen a user calls hs.loadSpoon(), Hammerspoon will load and execute init.lua\nfrom the relevant s.\nDo generally not perform any work, map any hotkeys, start any timers\/watchers\/etc.\nin the main scope of your init.lua. Instead, it should simply prepare an object\nwith methods to be used later, then return the object.\n\nParameters:\n * None\n\nReturns:\n * PasteRegister object",
-        "stripped_doc" : [
-          "Initializes a PasteRegister",
-          "When a user calls hs.loadSpoon(), Hammerspoon will load and execute init.lua",
-          "from the relevant s.",
-          "Do generally not perform any work, map any hotkeys, start any timers\/watchers\/etc.",
-          "in the main scope of your init.lua. Instead, it should simply prepare an object",
-          "with methods to be used later, then return the object.",
-          ""
-        ],
-        "def" : "PasteRegister:init()",
-        "desc" : "Initializes a PasteRegister",
-        "notes" : [
+    "Field" : [
 
-        ],
-        "signature" : "PasteRegister:init()",
-        "type" : "Method",
-        "returns" : [
-          " * PasteRegister object"
-        ],
-        "name" : "init",
-        "parameters" : [
-          " * None",
-          ""
-        ]
-      },
-      {
-        "doc" : "Enable or disable debugging\n\nParameters:\n * enable - Boolean indicating whether debugging should be on\n\nReturns:\n * Nothing",
-        "stripped_doc" : [
-          "Enable or disable debugging",
-          ""
-        ],
-        "def" : "PasteRegister:debug()",
-        "desc" : "Enable or disable debugging",
-        "notes" : [
+    ],
+    "Command" : [
 
-        ],
-        "signature" : "PasteRegister:debug()",
-        "type" : "Method",
-        "returns" : [
-          " * Nothing"
-        ],
-        "name" : "debug",
-        "parameters" : [
-          " * enable - Boolean indicating whether debugging should be on",
-          ""
-        ]
-      },
-      {
-        "doc" : "Accepts a table of key bindings, e.g.:\n  {\n    save = {{\"cmd\", \"alt\"}, \"s\"},\n    load = {{\"cmd\", \"alt\"}, \"l\"},\n    paste = {{\"cmd\", \"alt\"}, \"p\"},\n    paste = {{\"cmd\", \"alt\"}, \"c\"}\n  }\n\nParameters:\n * table - Table of action to key mappings\n\nReturns:\n * PasteRegister object",
-        "stripped_doc" : [
-          "Accepts a table of key bindings, e.g.:",
-          "  {",
-          "    save = {{\"cmd\", \"alt\"}, \"s\"},",
-          "    load = {{\"cmd\", \"alt\"}, \"l\"},",
-          "    paste = {{\"cmd\", \"alt\"}, \"p\"},",
-          "    paste = {{\"cmd\", \"alt\"}, \"c\"}",
-          "  }",
-          ""
-        ],
-        "def" : "PasteRegister:bindHotKeys(table)",
-        "desc" : "Accepts a table of key bindings, e.g.:",
-        "notes" : [
-
-        ],
-        "signature" : "PasteRegister:bindHotKeys(table)",
-        "type" : "Method",
-        "returns" : [
-          " * PasteRegister object"
-        ],
-        "name" : "bindHotKeys",
-        "parameters" : [
-          " * table - Table of action to key mappings",
-          ""
-        ]
-      },
-      {
-        "doc" : "Ask the user to select a register and save the paste buffer\nto that register.\n\nParameters:\n* None\n\nReturns:\n* True if the operation succeeded, otherwise false",
-        "stripped_doc" : [
-          "Ask the user to select a register and save the paste buffer",
-          "to that register.",
-          ""
-        ],
-        "def" : "PasteRegister:queryAndSavePasteBuffer()",
-        "desc" : "Ask the user to select a register and save the paste buffer",
-        "notes" : [
-
-        ],
-        "signature" : "PasteRegister:queryAndSavePasteBuffer()",
-        "type" : "Method",
-        "returns" : [
-          "* True if the operation succeeded, otherwise false"
-        ],
-        "name" : "queryAndSavePasteBuffer",
-        "parameters" : [
-          "* None",
-          ""
-        ]
-      },
-      {
-        "doc" : "Ask the user to select a register and then paste that register's\ncontents directly (via keyStrokes())\n\nParameters:\n* None\n\nReturns:\n* Nothing",
-        "stripped_doc" : [
-          "Ask the user to select a register and then paste that register's",
-          "contents directly (via keyStrokes())",
-          ""
-        ],
-        "def" : "PasteRegister.queryAndPasteRegister()",
-        "desc" : "Ask the user to select a register and then paste that register's",
-        "notes" : [
-
-        ],
-        "signature" : "PasteRegister.queryAndPasteRegister()",
-        "type" : "Method",
-        "returns" : [
-          "* Nothing"
-        ],
-        "name" : "queryAndPasteRegister",
-        "parameters" : [
-          "* None",
-          ""
-        ]
-      },
-      {
-        "doc" : "Open a hs.chooser instance with registers that have content.\n\nParameters:\n* None\n\nReturns:\n* Nothing",
-        "stripped_doc" : [
-          "Open a hs.chooser instance with registers that have content.",
-          ""
-        ],
-        "def" : "PasteRegister:chooser()",
-        "desc" : "Open a hs.chooser instance with registers that have content.",
-        "notes" : [
-
-        ],
-        "signature" : "PasteRegister:chooser()",
-        "type" : "Method",
-        "returns" : [
-          "* Nothing"
-        ],
-        "name" : "chooser",
-        "parameters" : [
-          "* None",
-          ""
-        ]
-      }
     ],
     "items" : [
       {
-        "doc" : "Ask the user to select a register and load the paste buffer\nfrom that register.\n\nParameters:\n* None\n\nReturns:\n* True if the operation succeeded, otherwise false",
+        "name" : "queryAndLoadPasteBuffer",
         "stripped_doc" : [
           "Ask the user to select a register and load the paste buffer",
           "from that register.",
           ""
         ],
+        "doc" : "Ask the user to select a register and load the paste buffer\nfrom that register.\n\nParameters:\n* None\n\nReturns:\n* True if the operation succeeded, otherwise false",
         "def" : "PasteRegister:queryAndLoadPasteBuffer()",
-        "desc" : "Ask the user to select a register and load the paste buffer",
         "notes" : [
 
         ],
@@ -211,26 +70,26 @@
         "returns" : [
           "* True if the operation succeeded, otherwise false"
         ],
-        "name" : "queryAndLoadPasteBuffer",
+        "desc" : "Ask the user to select a register and load the paste buffer",
         "parameters" : [
           "* None",
           ""
         ]
       },
       {
-        "doc" : "Accepts a table of key bindings, e.g.:\n  {\n    save = {{\"cmd\", \"alt\"}, \"s\"},\n    load = {{\"cmd\", \"alt\"}, \"l\"},\n    paste = {{\"cmd\", \"alt\"}, \"p\"},\n    paste = {{\"cmd\", \"alt\"}, \"c\"}\n  }\n\nParameters:\n * table - Table of action to key mappings\n\nReturns:\n * PasteRegister object",
+        "name" : "bindHotKeys",
         "stripped_doc" : [
           "Accepts a table of key bindings, e.g.:",
           "  {",
-          "    save = {{\"cmd\", \"alt\"}, \"s\"},",
+          "    chooser = {{\"cmd\", \"alt\"}, \"c\"},",
           "    load = {{\"cmd\", \"alt\"}, \"l\"},",
           "    paste = {{\"cmd\", \"alt\"}, \"p\"},",
-          "    paste = {{\"cmd\", \"alt\"}, \"c\"}",
+          "    save = {{\"cmd\", \"alt\"}, \"s\"}",
           "  }",
           ""
         ],
+        "doc" : "Accepts a table of key bindings, e.g.:\n  {\n    chooser = {{\"cmd\", \"alt\"}, \"c\"},\n    load = {{\"cmd\", \"alt\"}, \"l\"},\n    paste = {{\"cmd\", \"alt\"}, \"p\"},\n    save = {{\"cmd\", \"alt\"}, \"s\"}\n  }\n\nParameters:\n * table - Table of action to key mappings\n\nReturns:\n * PasteRegister object",
         "def" : "PasteRegister:bindHotKeys(table)",
-        "desc" : "Accepts a table of key bindings, e.g.:",
         "notes" : [
 
         ],
@@ -239,20 +98,20 @@
         "returns" : [
           " * PasteRegister object"
         ],
-        "name" : "bindHotKeys",
+        "desc" : "Accepts a table of key bindings, e.g.:",
         "parameters" : [
           " * table - Table of action to key mappings",
           ""
         ]
       },
       {
-        "doc" : "Open a hs.chooser instance with registers that have content.\n\nParameters:\n* None\n\nReturns:\n* Nothing",
+        "name" : "chooser",
         "stripped_doc" : [
           "Open a hs.chooser instance with registers that have content.",
           ""
         ],
+        "doc" : "Open a hs.chooser instance with registers that have content.\n\nParameters:\n* None\n\nReturns:\n* Nothing",
         "def" : "PasteRegister:chooser()",
-        "desc" : "Open a hs.chooser instance with registers that have content.",
         "notes" : [
 
         ],
@@ -261,20 +120,20 @@
         "returns" : [
           "* Nothing"
         ],
-        "name" : "chooser",
+        "desc" : "Open a hs.chooser instance with registers that have content.",
         "parameters" : [
           "* None",
           ""
         ]
       },
       {
-        "doc" : "Enable or disable debugging\n\nParameters:\n * enable - Boolean indicating whether debugging should be on\n\nReturns:\n * Nothing",
+        "name" : "debug",
         "stripped_doc" : [
           "Enable or disable debugging",
           ""
         ],
+        "doc" : "Enable or disable debugging\n\nParameters:\n * enable - Boolean indicating whether debugging should be on\n\nReturns:\n * Nothing",
         "def" : "PasteRegister:debug()",
-        "desc" : "Enable or disable debugging",
         "notes" : [
 
         ],
@@ -283,14 +142,14 @@
         "returns" : [
           " * Nothing"
         ],
-        "name" : "debug",
+        "desc" : "Enable or disable debugging",
         "parameters" : [
           " * enable - Boolean indicating whether debugging should be on",
           ""
         ]
       },
       {
-        "doc" : "Initializes a PasteRegister\nWhen a user calls hs.loadSpoon(), Hammerspoon will load and execute init.lua\nfrom the relevant s.\nDo generally not perform any work, map any hotkeys, start any timers\/watchers\/etc.\nin the main scope of your init.lua. Instead, it should simply prepare an object\nwith methods to be used later, then return the object.\n\nParameters:\n * None\n\nReturns:\n * PasteRegister object",
+        "name" : "init",
         "stripped_doc" : [
           "Initializes a PasteRegister",
           "When a user calls hs.loadSpoon(), Hammerspoon will load and execute init.lua",
@@ -300,8 +159,8 @@
           "with methods to be used later, then return the object.",
           ""
         ],
+        "doc" : "Initializes a PasteRegister\nWhen a user calls hs.loadSpoon(), Hammerspoon will load and execute init.lua\nfrom the relevant s.\nDo generally not perform any work, map any hotkeys, start any timers\/watchers\/etc.\nin the main scope of your init.lua. Instead, it should simply prepare an object\nwith methods to be used later, then return the object.\n\nParameters:\n * None\n\nReturns:\n * PasteRegister object",
         "def" : "PasteRegister:init()",
-        "desc" : "Initializes a PasteRegister",
         "notes" : [
 
         ],
@@ -310,21 +169,21 @@
         "returns" : [
           " * PasteRegister object"
         ],
-        "name" : "init",
+        "desc" : "Initializes a PasteRegister",
         "parameters" : [
           " * None",
           ""
         ]
       },
       {
-        "doc" : "Ask the user to select a register and then paste that register's\ncontents directly (via keyStrokes())\n\nParameters:\n* None\n\nReturns:\n* Nothing",
+        "name" : "queryAndPasteRegister",
         "stripped_doc" : [
           "Ask the user to select a register and then paste that register's",
           "contents directly (via keyStrokes())",
           ""
         ],
+        "doc" : "Ask the user to select a register and then paste that register's\ncontents directly (via keyStrokes())\n\nParameters:\n* None\n\nReturns:\n* Nothing",
         "def" : "PasteRegister.queryAndPasteRegister()",
-        "desc" : "Ask the user to select a register and then paste that register's",
         "notes" : [
 
         ],
@@ -333,21 +192,21 @@
         "returns" : [
           "* Nothing"
         ],
-        "name" : "queryAndPasteRegister",
+        "desc" : "Ask the user to select a register and then paste that register's",
         "parameters" : [
           "* None",
           ""
         ]
       },
       {
-        "doc" : "Ask the user to select a register and save the paste buffer\nto that register.\n\nParameters:\n* None\n\nReturns:\n* True if the operation succeeded, otherwise false",
+        "name" : "queryAndSavePasteBuffer",
         "stripped_doc" : [
           "Ask the user to select a register and save the paste buffer",
           "to that register.",
           ""
         ],
+        "doc" : "Ask the user to select a register and save the paste buffer\nto that register.\n\nParameters:\n* None\n\nReturns:\n* True if the operation succeeded, otherwise false",
         "def" : "PasteRegister:queryAndSavePasteBuffer()",
-        "desc" : "Ask the user to select a register and save the paste buffer",
         "notes" : [
 
         ],
@@ -356,18 +215,159 @@
         "returns" : [
           "* True if the operation succeeded, otherwise false"
         ],
-        "name" : "queryAndSavePasteBuffer",
+        "desc" : "Ask the user to select a register and save the paste buffer",
         "parameters" : [
           "* None",
           ""
         ]
       }
     ],
-    "Field" : [
+    "Method" : [
+      {
+        "name" : "init",
+        "stripped_doc" : [
+          "Initializes a PasteRegister",
+          "When a user calls hs.loadSpoon(), Hammerspoon will load and execute init.lua",
+          "from the relevant s.",
+          "Do generally not perform any work, map any hotkeys, start any timers\/watchers\/etc.",
+          "in the main scope of your init.lua. Instead, it should simply prepare an object",
+          "with methods to be used later, then return the object.",
+          ""
+        ],
+        "doc" : "Initializes a PasteRegister\nWhen a user calls hs.loadSpoon(), Hammerspoon will load and execute init.lua\nfrom the relevant s.\nDo generally not perform any work, map any hotkeys, start any timers\/watchers\/etc.\nin the main scope of your init.lua. Instead, it should simply prepare an object\nwith methods to be used later, then return the object.\n\nParameters:\n * None\n\nReturns:\n * PasteRegister object",
+        "def" : "PasteRegister:init()",
+        "notes" : [
 
-    ],
-    "Command" : [
+        ],
+        "signature" : "PasteRegister:init()",
+        "type" : "Method",
+        "returns" : [
+          " * PasteRegister object"
+        ],
+        "desc" : "Initializes a PasteRegister",
+        "parameters" : [
+          " * None",
+          ""
+        ]
+      },
+      {
+        "name" : "debug",
+        "stripped_doc" : [
+          "Enable or disable debugging",
+          ""
+        ],
+        "doc" : "Enable or disable debugging\n\nParameters:\n * enable - Boolean indicating whether debugging should be on\n\nReturns:\n * Nothing",
+        "def" : "PasteRegister:debug()",
+        "notes" : [
 
+        ],
+        "signature" : "PasteRegister:debug()",
+        "type" : "Method",
+        "returns" : [
+          " * Nothing"
+        ],
+        "desc" : "Enable or disable debugging",
+        "parameters" : [
+          " * enable - Boolean indicating whether debugging should be on",
+          ""
+        ]
+      },
+      {
+        "name" : "bindHotKeys",
+        "stripped_doc" : [
+          "Accepts a table of key bindings, e.g.:",
+          "  {",
+          "    chooser = {{\"cmd\", \"alt\"}, \"c\"},",
+          "    load = {{\"cmd\", \"alt\"}, \"l\"},",
+          "    paste = {{\"cmd\", \"alt\"}, \"p\"},",
+          "    save = {{\"cmd\", \"alt\"}, \"s\"}",
+          "  }",
+          ""
+        ],
+        "doc" : "Accepts a table of key bindings, e.g.:\n  {\n    chooser = {{\"cmd\", \"alt\"}, \"c\"},\n    load = {{\"cmd\", \"alt\"}, \"l\"},\n    paste = {{\"cmd\", \"alt\"}, \"p\"},\n    save = {{\"cmd\", \"alt\"}, \"s\"}\n  }\n\nParameters:\n * table - Table of action to key mappings\n\nReturns:\n * PasteRegister object",
+        "def" : "PasteRegister:bindHotKeys(table)",
+        "notes" : [
+
+        ],
+        "signature" : "PasteRegister:bindHotKeys(table)",
+        "type" : "Method",
+        "returns" : [
+          " * PasteRegister object"
+        ],
+        "desc" : "Accepts a table of key bindings, e.g.:",
+        "parameters" : [
+          " * table - Table of action to key mappings",
+          ""
+        ]
+      },
+      {
+        "name" : "queryAndSavePasteBuffer",
+        "stripped_doc" : [
+          "Ask the user to select a register and save the paste buffer",
+          "to that register.",
+          ""
+        ],
+        "doc" : "Ask the user to select a register and save the paste buffer\nto that register.\n\nParameters:\n* None\n\nReturns:\n* True if the operation succeeded, otherwise false",
+        "def" : "PasteRegister:queryAndSavePasteBuffer()",
+        "notes" : [
+
+        ],
+        "signature" : "PasteRegister:queryAndSavePasteBuffer()",
+        "type" : "Method",
+        "returns" : [
+          "* True if the operation succeeded, otherwise false"
+        ],
+        "desc" : "Ask the user to select a register and save the paste buffer",
+        "parameters" : [
+          "* None",
+          ""
+        ]
+      },
+      {
+        "name" : "queryAndPasteRegister",
+        "stripped_doc" : [
+          "Ask the user to select a register and then paste that register's",
+          "contents directly (via keyStrokes())",
+          ""
+        ],
+        "doc" : "Ask the user to select a register and then paste that register's\ncontents directly (via keyStrokes())\n\nParameters:\n* None\n\nReturns:\n* Nothing",
+        "def" : "PasteRegister.queryAndPasteRegister()",
+        "notes" : [
+
+        ],
+        "signature" : "PasteRegister.queryAndPasteRegister()",
+        "type" : "Method",
+        "returns" : [
+          "* Nothing"
+        ],
+        "desc" : "Ask the user to select a register and then paste that register's",
+        "parameters" : [
+          "* None",
+          ""
+        ]
+      },
+      {
+        "name" : "chooser",
+        "stripped_doc" : [
+          "Open a hs.chooser instance with registers that have content.",
+          ""
+        ],
+        "doc" : "Open a hs.chooser instance with registers that have content.\n\nParameters:\n* None\n\nReturns:\n* Nothing",
+        "def" : "PasteRegister:chooser()",
+        "notes" : [
+
+        ],
+        "signature" : "PasteRegister:chooser()",
+        "type" : "Method",
+        "returns" : [
+          "* Nothing"
+        ],
+        "desc" : "Open a hs.chooser instance with registers that have content.",
+        "parameters" : [
+          "* None",
+          ""
+        ]
+      }
     ],
     "name" : "PasteRegister"
   }
