@@ -35,13 +35,8 @@ PasteRegister.legalRegisters = "0123456789abcdefghijklmnopqrstuvwxyz"
 
 -- PasteRegister:init() {{{ --
 --- PasteRegister:init()
---- Method
+--- Function
 --- Initializes a PasteRegister
---- When a user calls hs.loadSpoon(), Hammerspoon will load and execute init.lua
---- from the relevant s.
---- Do generally not perform any work, map any hotkeys, start any timers/watchers/etc.
---- in the main scope of your init.lua. Instead, it should simply prepare an object
---- with methods to be used later, then return the object.
 ---
 --- Parameters:
 ---  * None
@@ -57,7 +52,7 @@ end
 
 -- PasteRegister:debug() {{{ --
 --- PasteRegister:debug()
---- Method
+--- Function
 --- Enable or disable debugging
 ---
 --- Parameters:
@@ -78,8 +73,9 @@ end
 
 -- PasteRegister:bindHotKeys() {{{ --
 --- PasteRegister:bindHotKeys(table)
---- Method
+--- Function
 --- Accepts a table of key bindings, e.g.:
+---
 ---   {
 ---     chooser = {{"cmd", "alt"}, "c"},
 ---     load = {{"cmd", "alt"}, "l"},
@@ -186,7 +182,7 @@ end
 
 -- PasteRegister:queryAndSavePasteBuffer() {{{ --
 --- PasteRegister:queryAndSavePasteBuffer()
---- Method
+--- Function
 --- Ask the user to select a register and save the paste buffer
 --- to that register.
 ---
@@ -270,7 +266,7 @@ end
 
 -- PasteRegister.queryAndPasteRegister() {{{ --
 --- PasteRegister.queryAndPasteRegister()
---- Method
+--- Function
 --- Ask the user to select a register and then paste that register's
 --- contents directly (via keyStrokes())
 ---
@@ -289,7 +285,7 @@ end
 
 -- PasteRegister:chooser() {{{ --
 --- PasteRegister:chooser()
---- Method
+--- Function
 --- Open a hs.chooser instance with registers that have content.
 ---
 --- Parameters:
