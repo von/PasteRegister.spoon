@@ -294,6 +294,41 @@ function PasteRegister:queryAndPasteRegister()
 end
 -- }}} PasteRegister:queryAndPasteRegister() --
 
+-- clearRegister() {{{ --
+-- PasteRegister.clearRegister()
+-- Internal Function
+-- Clear a register.
+--
+-- Parameters:
+-- * register: Character identifying register to clear
+--
+-- Returns:
+-- * Nothing
+local function clearRegister(register)
+  local registers = hs.settings.get(PasteRegister.settingsKey) or {}
+  registers[register] = nil
+  hs.settings.set(PasteRegister.settingsKey, registers)
+end
+-- }}} clearRegister() --
+
+-- PasteRegister.queryAndClearRegister() {{{ --
+--- PasteRegister.queryAndClearRegister()
+--- Function
+--- Ask the user to select a register and then clear it.
+---
+--- Parameters:
+--- * None
+---
+--- Returns:
+--- * Nothing
+local queryAndClearRegister =
+  wrapRegisterFunction(clearRegister, "Press key for register to clear")
+
+function PasteRegister:queryAndClearRegister()
+  queryAndClearRegister()
+end
+-- }}} PasteRegister:queryAndClearRegister() --
+
 -- PasteRegister:chooser() {{{ --
 --- PasteRegister:chooser()
 --- Function
