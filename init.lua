@@ -2,7 +2,8 @@
 ---
 --- Allow the saving of the pastebuffer to registers identified by
 --- letters of the alphabet, and sequently loading it from those
---- registers.
+--- registers. Registers persist by virtual of being stored in
+--- hs.settings.
 
 local PasteRegister = {}
 
@@ -25,8 +26,9 @@ local Indefinite = "indefinite"  -- For alerts
 -- Class variables {{{ --
 -- The following are used by internal functions
 
--- Prefix for register key to create pasteboard name
-PasteRegister.registerPrefix = "Hammerspoon-register-"
+-- Key used to store registers in hs.settings
+-- What we store is a table with registers as keys
+PasteRegister.settingsKey = "PasteRegisters"
 
 -- List of legal registers
 PasteRegister.legalRegisters = "0123456789abcdefghijklmnopqrstuvwxyz"
@@ -142,28 +144,6 @@ local function wrapRegisterFunction(callback, msg)
 end
 -- }}} wrapRegisterFunction() --
 
--- pasteboardCopy() {{{ --
--- pasteboardCopy()
--- Internal Function
--- Copy one pasteboard to another
--- If either from or to is nil, the system pasteboard is used.
--- By not going through StyledText this is a more accurate copy
---
--- Parameters:
--- * from: Name of source pasteboard
--- * to: Name of destination pasteboard
---
--- Returns:
--- * True on success, false on failure
-local function pasteboardCopy(from, to)
-  local data = hs.pasteboard.readAllData(from)
-  if not data then
-    return false
-  end
-  return hs.pasteboard.writeAllData(to, data)
-end
--- }}} pasteboardCopy() --
-
 -- savePasterBuffer() {{{ --
 -- savePasterBuffer()
 -- Internal Function
@@ -175,8 +155,16 @@ end
 -- Returns:
 -- * True if the operation succeeded, otherwise false
 local function savePasteBuffer(register)
-  hs.alert.show("Saving paste buffer to register " .. register)
-  return pasteboardCopy(nil, PasteRegister.registerPrefix .. register)
+  local data = hs.pasteboard.readAllData()
+  if data then
+    hs.alert.show("Saving paste buffer to register " .. register)
+    local registers = hs.settings.get(PasteRegister.settingsKey) or {}
+    registers[register] = data
+    hs.settings.set(PasteRegister.settingsKey, registers)
+  else
+    hs.alert.show("Paste buffer empty")
+  end
+  return true
 end
 -- }}} savePasterBuffer() --
 
@@ -212,10 +200,11 @@ end
 -- Returns:
 -- * True if the operation succeeded, otherwise false
 local function loadPasteBuffer(register)
-  local contents = hs.pasteboard.getContents(PasteRegister.registerPrefix .. register)
+  local registers = hs.settings.get(PasteRegister.settingsKey) or {}
+  local contents = registers[register]
   if contents then
     hs.alert.show("Loading paste buffer from register " .. register)
-    return pasteboardCopy(PasteRegister.registerPrefix .. register, nil)
+    return hs.pasteboard.writeAllData(nil, contents)
   else
     hs.alert.show("Register " .. register .. " empty.")
     return false
@@ -254,7 +243,8 @@ end
 -- * Nothing
 local function pasteRegister(register)
   -- hs.eventtap.keyStrokes() cannot handle styledtext
-  local contents = hs.pasteboard.readString(PasteRegister.registerPrefix .. register)
+  local registers = hs.settings.get(PasteRegister.settingsKey) or {}
+  local contents = registers[register]
   if contents then
     hs.alert.show("Pasting from register " .. register)
     hs.eventtap.keyStrokes(contents)
@@ -301,10 +291,14 @@ function PasteRegister:chooser()
     loadPasteBuffer(choice.register)
   end
 
+  local registers = hs.settings.get(PasteRegister.settingsKey) or {}
   local choices = {}
   for register in PasteRegister.legalRegisters:gmatch(".") do
-    local contents = hs.pasteboard.getContents(PasteRegister.registerPrefix .. register)
+    local contents = registers[register]
     if contents then
+      if type(contents) == "table" then
+        contents = contents["public.utf8-plain-text"]
+      end
       table.insert(choices, {
           text = string.format("%.40s", contents),
           -- image code kudos: https://github.com/Hammerspoon/hammerspoon/pull/2062
