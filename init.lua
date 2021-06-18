@@ -255,7 +255,7 @@ end
 -- pasteRegister() {{{ --
 -- PasteRegister.pasteRegister()
 -- Internal Function
--- Paster directly from register without changing default pastebuffer
+-- Paste directly from register without changing default pastebuffer
 --
 -- Parameters:
 -- * register: Character identifying register from which to load
