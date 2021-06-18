@@ -48,6 +48,27 @@ PasteRegister.legalRegisters = "0123456789abcdefghijklmnopqrstuvwxyz"
 function PasteRegister:init()
   self.log = hs.logger.new("PasteRegister")
 
+  -- Precreate images for chooser
+  -- image code kudos: https://github.com/Hammerspoon/hammerspoon/pull/2062
+  self.images = {}
+  for register in PasteRegister.legalRegisters:gmatch(".") do
+    self.images[register] = hs.canvas.new{ h = 50, w = 50 }:appendElements{
+      {
+        type = "rectangle",
+        -- alpha = 0 -> transparent
+        strokeColor = { alpha = 0 },
+        fillColor   = { alpha = 0 },
+      }, {
+        frame = { h = 50, w = 50, x = 0, y = -6 },
+        text = hs.styledtext.new(register, {
+            color = { white = 1 },
+            font = { name = ".AppleSystemUIFont", size = 50 },
+            paragraphStyle = { alignment = "center" }
+          }),
+        type = "text",
+      }
+    }:imageFromCanvas()
+  end
   return self
 end
 -- }}} PasteRegister:init() --
@@ -301,23 +322,7 @@ function PasteRegister:chooser()
       end
       table.insert(choices, {
           text = string.format("%.40s", contents),
-          -- image code kudos: https://github.com/Hammerspoon/hammerspoon/pull/2062
-          image = hs.canvas.new{ h = 50, w = 50 }:appendElements{
-            {
-              type = "rectangle",
-              -- alpha = 0 -> transparent
-              strokeColor = { alpha = 0 },
-              fillColor   = { alpha = 0 },
-            }, {
-              frame = { h = 50, w = 50, x = 0, y = -6 },
-              text = hs.styledtext.new(register, {
-                  color = { white = 1 },
-                  font = { name = ".AppleSystemUIFont", size = 50 },
-                  paragraphStyle = { alignment = "center" }
-                }),
-              type = "text",
-            }
-          }:imageFromCanvas(),
+          image = self.images[register],
           register = register
         })
     end
